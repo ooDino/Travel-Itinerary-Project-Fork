@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to NAwayFarer</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body and header styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        /* Navigation styles */
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0f0f0;
+        }
+
+        /* Main content styles */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        /* CTA button styles */
+        .cta-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Sign up and login form styles */
+        .signup-login {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .signup-login form {
+            width: 45%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .signup-login form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to NAwayFarer</h1>
+        <nav>
+           <a href="{% url 'itinerary' %}">Plan Your Trip</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}" class="cta-button">Logout</a>
+
+            {% else %}
+            <a href="{% url 'signup' %}" class="cta-button">Sign Up</a>
+            <a href="{% url 'login' %}" class="cta-button">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        <section id="plan-your-trip">
+            <h2>Plan Your Trip</h2>
+            <p>Welcome to NAwayFarer! We make planning your dream vacations a breeze. Whether you're looking for a relaxing beach getaway or an adventurous mountain expedition, we've got you covered.</p>
+        </section>
+
+        <section id="popular-destinations">
+            <h2>Popular Destinations</h2>
+            <p>Explore our list of popular destinations and discover your next travel adventure. From iconic cities to hidden gems, there's something for every traveler.</p>
+        </section>
+
+        <section id="recent-itineraries">
+            <h2>Recent Itineraries</h2>
+            <p>Check out our latest travel itineraries created by fellow travelers. Get inspired and start planning your own unforgettable journey.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 NAwayFarer</p>
+    </footer>
+</body>
+</html>
