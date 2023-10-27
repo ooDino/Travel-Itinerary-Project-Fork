@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
-from homepage.yelp_api import search_businesses
+from .yelp_api import search_businesses
 
 # Create your views here.
 

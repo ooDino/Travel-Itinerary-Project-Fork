@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Testing Stuff Out{% endblock %}</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>NAwayfarer</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Default content can go here, if any -->
+        {% endblock %}
+    </main>
+
+    <!-- Common footer section -->
+    <footer>
+        <p>&copy; 2023 My Website. All rights reserved.</p>
+    </footer>
+
+    <!-- You can include common JS files here -->
+
+</body>
+
+</html>
