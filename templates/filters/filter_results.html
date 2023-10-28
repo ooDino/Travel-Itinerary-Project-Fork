@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title>filter_results</title>  
+</head>
+<body>
+    <center>
+        <div id = "filter results"> <b>
+            Results:
+        </b></div>
+        
+            {%for result in results_list %}
+            {{ result}}
+            {% endfor %}
+        
+
+        <a href="/">Back</a>
+
+    </center>
+    
+   
+</body>
+</html>
