@@ -1,0 +1,45 @@
+name: Django CI
+
+on:
+  pull_request:
+    branches:
+      - Cris
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11.5  
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run unit and integration tests
+      run: |
+        python manage.py test  
+
+    - name: Generate code coverage report
+      run: |
+        pip install coverage
+        coverage run --source='.' manage.py test
+        coverage report
+
+    - name: Start the site
+      run: python manage.py runserver &
+
+    - name: Execute end-2-end tests
+      run: |
+        python e2e_test.py
+        
+    - name: Stop the application
+      run: pkill -f "python manage.py runserver"
