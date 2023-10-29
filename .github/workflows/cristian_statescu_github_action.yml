@@ -40,7 +40,7 @@ jobs:
 
     - name: Execute end-2-end tests
       run: |
-        python e2e_test.py
+        python e2e_tests/test_search.py
         
     - name: Stop the application
       run: pkill -f "python manage.py runserver"
