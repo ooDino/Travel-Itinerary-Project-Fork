@@ -44,3 +44,5 @@ jobs:
         
     - name: Stop the application
       run: pkill -f "python manage.py runserver"
+      continue-on-error: true
+      
