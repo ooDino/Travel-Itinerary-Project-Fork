@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  margin: 0 auto; /* Center website */
+  max-width: 800px; /* Max width */
+  padding: 20px;
+}
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.checked {
+  color: orange;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+
+
+/* Individual bars */
+.bar-5 {width: 0%; height: 18px; background-color: #04AA6D;}
+.bar-4 {width: 0%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 0%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 0%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 0%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<span class="heading">User Rating</span>
+<span class="fa fa-star" id="star1"></span>
+<span class="fa fa-star" id="star2"></span>
+<span class="fa fa-star" id="star3"></span>
+<span class="fa fa-star" id="star4"></span>
+<span class="fa fa-star" id="star5"></span>
+<p><span id="averageRating">0.0</span> average based on <span id="reviewCount">0</span> reviews.</p>
+<hr style="border:3px solid #f1f1f1">
+
+<div class="row">
+  <div class="side">
+    <div>5 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-5" id="bar5"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div id="star5Count">0</div>
+  </div>
+  <div class="side">
+    <div>4 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-4" id="bar4"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div id="star4Count">0</div>
+  </div>
+  <div class="side">
+    <div>3 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-3" id="bar3"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div id="star3Count">0</div>
+  </div>
+  <div class="side">
+    <div>2 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-2" id="bar2"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div id="star2Count">0</div>
+  </div>
+  <div class="side">
+    <div>1 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-1" id="bar1"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div id="star1Count">0</div>
+  </div>
+</div>
+
+<script>
+  const stars = document.querySelectorAll('.fa-star');
+
+  stars.forEach(star => {
+    star.addEventListener('click', (e) => {
+      const starId = e.target.id;
+      const starNumber = parseInt(starId.charAt(starId.length - 1));
+
+      for (let i = 1; i <= 5; i++) {
+        const starIdToUpdate = 'star' + i;
+        if (i <= starNumber) {
+          document.getElementById(starIdToUpdate).classList.add('checked');
+        } else {
+          document.getElementById(starIdToUpdate).classList.remove('checked');
+        }
+      }
+
+      updateRating(starNumber);
+    });
+  });
+
+function updateRating(rating) {
+  const starCountId = 'star' + rating + 'Count';
+  const starCountElement = document.getElementById(starCountId);
+  starCounts[starCountId] += 1;
+  
+  starCountElement.innerText = starCounts[starCountId];
+  
+  const totalReviews = starCounts['star1Count'] + starCounts['star2Count'] + starCounts['star3Count'] + starCounts['star4Count'] + starCounts['star5Count'];
+  for (let i = 1; i <= 5; i++) {
+    const barId = 'bar' + i;
+    const barElement = document.getElementById(barId);
+    const percentage = (starCounts['star' + i + 'Count'] / totalReviews) * 100;
+    barElement.style.width = percentage + '%';
+  }
+
+  const averageRating = ((1 * starCounts['star1Count'] + 2 * starCounts['star2Count'] + 3 * starCounts['star3Count'] + 4 * starCounts['star4Count'] + 5 * starCounts['star5Count']) / totalReviews).toFixed(1);
+
+  document.getElementById('averageRating').innerText = averageRating;
+  document.getElementById('reviewCount').innerText = totalReviews;
+}
+
+
+  const starCounts = {
+    'star1Count': 0,
+    'star2Count': 0,
+    'star3Count': 0,
+    'star4Count': 0,
+    'star5Count': 0,
+  };
+</script>
+</body>
+</html>
+
+
+
