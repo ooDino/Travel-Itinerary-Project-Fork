@@ -3,5 +3,10 @@
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "python.formatting.provider": "none",
-    "markiscodecoverage.searchCriteria": "C:\\Users\\Wilm\\Documents\\GitHub\\csc456\\Travel-Itinerary-Project"
+    "markiscodecoverage.searchCriteria": "C:\\Users\\Wilm\\Documents\\GitHub\\csc456\\Travel-Itinerary-Project",
+    "python.testing.pytestArgs": [
+        "homepage"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

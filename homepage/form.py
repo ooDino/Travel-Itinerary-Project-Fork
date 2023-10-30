@@ -33,3 +33,12 @@ class filterForm(ModelForm):
             'BudgeMin' : forms.NumberInput(attrs={'class': 'form-contrl', 'placeholder' :"Minimum amount", 'min' : '0'}),
             'BudgetMax' : forms.NumberInput(attrs={'class': 'form-contrl', 'placeholder' :"Maximum amount", 'required' : 'True'}),
         }
+
+
+
+class Filter_results:
+    resultList = Filter.objects.all()
+
+
+    def __str__(self):
+            return        

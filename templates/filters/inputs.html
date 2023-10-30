@@ -24,9 +24,9 @@
                 {% csrf_token%}
 
                 {{ form.as_p}}
-                <button type = 'reset'>Reset</button>
+                <button name = 'reset' type = 'reset'>Reset</button>
                 <br/><br/>
-                <input type = "submit" value = "Start Planning" class = "btn btn-secondary">
+                <input type = "submit" name = 'Start Planning' value = "Start Planning" class = "btn btn-secondary">
                
             </form>
         {% endif %}

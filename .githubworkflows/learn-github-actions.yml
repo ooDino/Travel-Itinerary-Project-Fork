@@ -1,0 +1,45 @@
+name: Wilmer_CHang-github-actions
+
+on: 
+  pull_request:
+      branches:
+        - wil
+    workflow_dispatch:
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9  
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Generate code coverage report
+      run: |
+        pip install coverage
+        coverage run --source='.' manage.py test
+        coverage report
+        coverage html
+
+    - name: Run unit and integration tests
+      run: |
+        python manage.py test  
+
+    
+    - name: Start the site
+      run: python manage.py runserver 
+
+        
+    - name: Stop the application
+      run: pkill -f "python manage.py runserver"
