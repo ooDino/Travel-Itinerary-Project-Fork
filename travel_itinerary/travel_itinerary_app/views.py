@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
 # travel_itinerary_app/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -10,7 +10,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import SignupForm, LoginForm
 from django.contrib.auth.decorators import login_required
-
+import json
+from django.http import JsonResponse
 
 # travel_itinerary_app/views.py
 from django.shortcuts import render
@@ -83,47 +84,29 @@ def profile(request):
 
 def itinerary_form(request):
     if request.method == 'POST':
-        # Capture form data here
+        # Retrieve form data
         departure_date = request.POST.get('departure_date')
         return_date = request.POST.get('return_date')
-        origin = request.POST.get('origin')
-        destination = request.POST.get('destination')
+        origin_city = request.POST.get('Origin City')
+        destination_city = request.POST.get('Destination City')
         travelers = request.POST.get('travelers')
         min_amount = request.POST.get('min_amount')
         max_amount = request.POST.get('max_amount')
 
-        # Create a TravelItinerary object and populate it with form data
-        # travel_itinerary = Itinerary()
-        # travel_itinerary.departure_date = departure_date
-        # travel_itinerary.return_date = return_date
-        # travel_itinerary.origin = origin
-        # travel_itinerary.destination = destination
-        # travel_itinerary.travelers = travelers
-        # travel_itinerary.min_amount = min_amount
-        # travel_itinerary.max_amount = max_amount
-        #
-        #
-        #
-        #
-        # # Loop over the object's properties and print them
-        # for key, value in vars(travel_itinerary).items():
-        #     print(f"{key}: {value}")
-        # # Make API calls using the Itinerary object's methods
-        # flights = travel_itinerary.make_flight_search(travel_itinerary.min_amount,
-        #                                     travel_itinerary.max_amount,
-        #                                     travel_itinerary.origin,
-        #                                     travel_itinerary.destination,
-        #                                     travel_itinerary.departure_date,
-        #                                     travel_itinerary.travelers
-        #                                     )
-        # print(flights)
-        # travel_itinerary.make_hotel_search()
-        # travel_itinerary.make_restaurant_search()
-        #
-        # # Generate the itinerary based on the populated Itinerary object
-        # travel_itinerary.generate_itinerary()
+        # Create a dictionary with the form data
+        form_data = {
+            'departure_date': departure_date,
+            'return_date': return_date,
+            'origin_city': origin_city,
+            'destination_city': destination_city,
+            'travelers': travelers,
+            'min_amount': min_amount,
+            'max_amount': max_amount,
+        }
+
+        # Print the form data to the console
+        print(json.dumps(form_data, indent=4))
 
 
-        # Redirect or render a response here
 
     return render(request, 'travel_itinerary_app/processing.html')
