@@ -12,9 +12,10 @@ from .forms import SignupForm, LoginForm
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
-
 # travel_itinerary_app/views.py
 from django.shortcuts import render
+from .flights import airport_id_locator, flights_finder
+from datetime import datetime
 
 def home(request):
     # Your logic for the homepage view
@@ -85,27 +86,48 @@ def profile(request):
 def itinerary_form(request):
     if request.method == 'POST':
         # Retrieve form data
-        departure_date = request.POST.get('departure_date')
-        return_date = request.POST.get('return_date')
+        departure_date_str = request.POST.get('departure_date')
+        departure_date = datetime.strptime(departure_date_str, "%Y-%m-%d").strftime("%Y-%m-%d")
+        return_date_str = request.POST.get('return_date')
+        return_date = datetime.strptime(return_date_str, "%Y-%m-%d").strftime("%Y-%m-%d")
+
         origin_city = request.POST.get('Origin City')
         destination_city = request.POST.get('Destination City')
         travelers = request.POST.get('travelers')
         min_amount = request.POST.get('min_amount')
         max_amount = request.POST.get('max_amount')
 
-        # Create a dictionary with the form data
-        form_data = {
-            'departure_date': departure_date,
-            'return_date': return_date,
-            'origin_city': origin_city,
-            'destination_city': destination_city,
-            'travelers': travelers,
-            'min_amount': min_amount,
-            'max_amount': max_amount,
-        }
 
-        # Print the form data to the console
-        print(json.dumps(form_data, indent=4))
+        #airport id locator
+        airport_ids = airport_id_locator(origin_city,destination_city)
+        try :
+            origin_sky_id = airport_ids[0]
+            destination_sky_id = airport_ids[2]
+            origin_entity_id = airport_ids[1]
+            destination_entity_id = airport_ids[3]
+        except :
+            print ("Couldnt Retrieve The Airport IDs")
+            return
+        # print(airport_ids)
+        # # print("origin id is:")
+        # # print(airport_ids[0])
+        # # print("destination  id is:")
+        # # print(airport_ids[1])
+        # # Print the form data to the console
+
+        #finding the flights
+        flight_objects = flights_finder(origin_sky_id,destination_sky_id,origin_entity_id,
+                                 destination_entity_id,departure_date,return_date,travelers)
+
+        print(f"Total Flights found {len(flight_objects)}") if (flight_objects or (flight_objects) >  0) else print("No Flights Found for this trip")
+        for i in range(len(flight_objects)):
+            print(f"\nFlight {i + 1} info : ")
+            print(flight_objects[i])
+
+        print(flight_objects[0].from_airport)
+
+
+
 
 
 
