@@ -11,6 +11,7 @@ urlpatterns = [
     path('itinerary/', views.itinerary, name='itinerary'),
     path('profile/', views.profile, name='profile'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('itinerary_form/', views.itinerary_form, name='itinerary_form'),
 
     # Add more URL patterns as needed
 ]
