@@ -110,14 +110,4 @@ def flights_finder(originSkyId,destinationSkyId,originEntityId,destinationEntity
         flight_info = Flight(from_airport, to_airport, cost, dates_departure, dates_arrival, airlines_name)
         flight_objects.append(flight_info)
 
-        return flight_objects
-
-
-
-
-
-
-
-
-
-
+    return flight_objects

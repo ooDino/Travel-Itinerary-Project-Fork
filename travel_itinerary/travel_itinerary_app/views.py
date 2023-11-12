@@ -16,6 +16,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .flights import airport_id_locator, flights_finder
 from datetime import datetime
+from .yelp_api import search_businesses
 
 def home(request):
     # Your logic for the homepage view
@@ -126,9 +127,23 @@ def itinerary_form(request):
 
         print(flight_objects[0].from_airport)
 
-
-
-
-
-
     return render(request, 'travel_itinerary_app/processing.html')
+
+def search_results(request):
+    term = request.POST.get('business')
+    location = request.POST.get('Destination City')
+    context = {
+        "businesses": [],
+        "error_message": "",
+        "term": term,
+        "location": location,
+    }
+
+    try:
+        results = search_businesses(term, location)
+        context["businesses"] = results.get("businesses", [])
+    except Exception as e:
+        context["error_message"] = "Sorry, there was an error processing your request."
+
+    return render(request, "travel_itinerary_app/search_results.html", context)
+    
