@@ -99,15 +99,18 @@ def itinerary_form(request):
 
 
         #airport id locator
-        airport_ids = airport_id_locator(origin_city,destination_city)
         try :
+            airport_ids = airport_id_locator(origin_city,destination_city)
+            if isinstance(airport_ids, str):
+                error_message = airport_ids
+                return render(request, 'travel_itinerary_app/error_page.html', {'error_message': error_message})
             origin_sky_id = airport_ids[0]
             destination_sky_id = airport_ids[2]
             origin_entity_id = airport_ids[1]
             destination_entity_id = airport_ids[3]
         except :
-            print ("Couldnt Retrieve The Airport IDs")
-            return
+            return render(request, 'travel_itinerary_app/error_page.html', {'error_message': 'No Airport ID Found'})
+
         # print(airport_ids)
         # # print("origin id is:")
         # # print(airport_ids[0])
@@ -116,15 +119,31 @@ def itinerary_form(request):
         # # Print the form data to the console
 
         #finding the flights
-        flight_objects = flights_finder(origin_sky_id,destination_sky_id,origin_entity_id,
+        try:
+            flight_objects = flights_finder(origin_sky_id,destination_sky_id,origin_entity_id,
                                  destination_entity_id,departure_date,return_date,travelers)
+            if isinstance(flight_objects, str):
+                error_message = flight_objects  # Use the error message from the helper function
+                print("Error in flights_finder:", error_message)  # Print the error message
+                return render(request, 'travel_itinerary_app/error_page.html', {'error_message': error_message})
+        except :
+            return render(request, 'travel_itinerary_app/error_page.html', {'error_message': 'Couldnt Find Any Flights'})
 
-        print(f"Total Flights found {len(flight_objects)}") if (flight_objects or (flight_objects) >  0) else print("No Flights Found for this trip")
-        for i in range(len(flight_objects)):
-            print(f"\nFlight {i + 1} info : ")
-            print(flight_objects[i])
+        if flight_objects and len(flight_objects) > 0:
+            flights = len(flight_objects)
+            print(f'Total {flights} flights found for your trip')
+            for i in range(len(flight_objects)):
+                print(f"\nFlight {i + 1} info : ")
+                print(flight_objects[i])
 
-        print(flight_objects[0].from_airport)
+
+        else:
+            return render(request, 'travel_itinerary_app/error_page.html',
+                          {'error_message': 'Couldnt Find Any Flights'})
+
+
+
+        # print(flight_objects[0].from_airport)
 
 
 

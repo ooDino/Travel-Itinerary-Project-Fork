@@ -3,7 +3,9 @@ import requests
 
 
 
-api_key = '3d3c858566msha6a8b3a65bf1632p1dabeejsn274175590ebd'
+
+# api_key = '291ff9d981msh6ab1fe0b6bc3e91p1b31b9jsnd6adecbea848'
+api_key = '6fa385e75bmshb430b5d78aa7a82p102052jsn5d1111edb961'
 
 class Flight:
   def __init__(self, from_airport, to_airport, cost, dates_departure, dates_arrival, airlines_name):
@@ -35,14 +37,18 @@ def airport_id_locator(origin,destination):
     "X-RapidAPI-Key": api_key,
     "X-RapidAPI-Host": "sky-scrapper.p.rapidapi.com"
   }
+  try :
+    response = requests.get(url, headers=headers, params=querystring)
+    data = response.json()
+    if 'message' in data:
+        print(data)
+        return "An error occurred while retrieving airport data: {}".format(str(data))
 
-  response = requests.get(url, headers=headers, params=querystring)
-  data = response.json()
-  try:
-      origin_airport_skyId = data['data'][0]['navigation']['relevantFlightParams']['skyId']
-      origin_airort_entityId = data['data'][0]['navigation']['relevantFlightParams']['entityId']
-  except:
-      return ["No Data Returned, Please Try again"]
+    origin_airport_skyId = data['data'][0]['navigation']['relevantFlightParams']['skyId']
+    origin_airort_entityId = data['data'][0]['navigation']['relevantFlightParams']['entityId']
+  except Exception as e:
+    return "An error occurred while retrieving airport data: {}".format(str(e))
+
 
   url = "https://sky-scrapper.p.rapidapi.com/api/v1/flights/searchAirport"
 
@@ -53,13 +59,16 @@ def airport_id_locator(origin,destination):
     "X-RapidAPI-Host": "sky-scrapper.p.rapidapi.com"
   }
 
-  response = requests.get(url, headers=headers, params=querystring)
-  data = response.json()
   try:
+      response = requests.get(url, headers=headers, params=querystring)
+      data = response.json()
+      if 'message' in data:
+          print(data)
+          return "An error occurred while retrieving airport data: {}".format(str(data))
       destination_airport_skyId = data['data'][0]['navigation']['relevantFlightParams']['skyId']
       destination_airort_entityId = data['data'][0]['navigation']['relevantFlightParams']['entityId']
-  except:
-      return ["No Data Returned, Please Try again"]
+  except Exception as e:
+      return "An error occurred while retrieving airport data: {}".format(str(e))
 
   # print(origin_airport_id,destination_airport_id)
   airport_ids = [origin_airport_skyId,
@@ -87,12 +96,18 @@ def flights_finder(originSkyId,destinationSkyId,originEntityId,destinationEntity
         "X-RapidAPI-Host": "sky-scrapper.p.rapidapi.com"
     }
 
-    response = requests.get(url, headers=headers, params=querystring)
-    data = response.json()
+
     try :
+        response = requests.get(url, headers=headers, params=querystring)
+        data = response.json()
+        if 'message' in data:
+            print(data)
+            return "An error occurred while retrieving airport data: {}".format(str(data))
+
         itineraries = data["data"]["itineraries"]
-    except :
-        return ['No Itinerary Found, Please Try Again']
+    except Exception as e:
+        return "An error occurred while retrieving airport data: {}".format(str(e))
+
 
     # Extract data for the first 3 flights and create Flight objects
     flight_objects = []
