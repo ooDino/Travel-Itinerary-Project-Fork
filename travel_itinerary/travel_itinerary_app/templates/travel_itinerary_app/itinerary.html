@@ -106,7 +106,7 @@
     <main>
         <section id="trip-form">
             <h2>Create Your Travel Itinerary</h2>
-            <form id="itinerary-form" action="{% url 'search_results' %}" method="post">
+            <form id="itinerary-form" action="{% url 'itinerary_form' %}" method="post">
 
                 {% csrf_token %}
 
@@ -114,19 +114,19 @@
                 <!-- Departure Date -->
                 <div class="form-group">
                     <label for="departure-date">Departure Date:</label>
-                    <input type="date" id="departure-date" name="departure_date">
+                    <input type="date" id="departure-date" name="departure_date" required>
                 </div>
 
                 <!-- Return Date -->
                 <div class="form-group">
                     <label for="return-date">Return Date:</label>
-                    <input type="date" id="return-date" name="return_date">
+                    <input type="date" id="return-date" name="return_date" required>
                 </div>
 
                 <!-- City -->
                 <div class="form-group">
                     <label for="origin">Origin City:</label>
-                    <input type="text" id="origin" name="Origin City">
+                    <input type="text" id="origin" name="Origin City" required>
                 </div>
 
                 <!-- Country -->
@@ -138,19 +138,19 @@
                 <!-- Number of Travelers -->
                 <div class="form-group">
                     <label for="travelers">Number of Travelers:</label>
-                    <input type="number" id="travelers" name="travelers">
+                    <input type="number" id="travelers" name="travelers" required>
                 </div>
 
                 <!-- Minimum Amount -->
                 <div class="form-group">
                     <label for="min-amount">Minimum Amount (USD):</label>
-                    <input type="number" id="min-amount" name="min_amount">
+                    <input type="number" id="min-amount" name="min_amount" required>
                 </div>
 
                 <!-- Maximum Amount -->
                 <div class="form-group">
                     <label for="max-amount">Maximum Amount (USD):</label>
-                    <input type="number" id="max-amount" name="max_amount">
+                    <input type="number" id="max-amount" name="max_amount" required>
                 </div>
 
                 <!-- Business -->

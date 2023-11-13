@@ -3,7 +3,7 @@ import requests
 
 
 
-api_key = '3d3c858566msha6a8b3a65bf1632p1dabeejsn274175590ebd'
+api_key = '318b303b13msh472c820b48213f9p19ed20jsn5864dec2e2c9'
 
 class Flight:
   def __init__(self, from_airport, to_airport, cost, dates_departure, dates_arrival, airlines_name):
