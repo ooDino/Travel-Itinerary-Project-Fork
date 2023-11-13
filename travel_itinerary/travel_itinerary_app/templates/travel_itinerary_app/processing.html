@@ -93,7 +93,7 @@
             processingMessage.style.display = 'block';
 
             // Submit the form using Fetch API
-            fetch("{% url 'itinerary_form' %}", {
+            fetch('{% url 'itinerary_form' %}', {
                 method: 'POST',
                 body: new FormData(form),
                 headers: {

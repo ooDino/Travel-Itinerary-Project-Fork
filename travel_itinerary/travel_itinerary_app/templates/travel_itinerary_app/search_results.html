@@ -104,11 +104,24 @@
     </header>
 
     <main>
-        <h1>Search Results for {{ term }} in {{ location }}</h1>
+        <h1>Search Results for {{ term }} in {{ start_location }}:</h1>
         <ul>
             {% for business in businesses %}
             <li>{{ business.name }}</li>
             {% endfor %}
+        </ul>
+        <h1>Search Results for flights from {{ start_location }} to {{ end_location }}:</h2>
+        <ul>
+            {% for flight in flights %}
+            <li>
+                <strong>From Airport:</strong> {{ flight.from_airport }}<br>
+                <strong>To Airport:</strong> {{ flight.to_airport }}<br>
+                <strong>Cost:</strong> {{ flight.cost }}<br>
+                <strong>Dates (Departure):</strong> {{ flight.dates_departure }}<br>
+                <strong>Dates (Arrival):</strong> {{ flight.dates_arrival }}<br>
+                <strong>Airlines Name:</strong> {{ flight.airlines_name }}
+            </li>
+            {% endfor %}        
         </ul>
     </main>
 
