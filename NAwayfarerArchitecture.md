@@ -17,7 +17,7 @@ The API results are then returned to the backend, and then used in the beta vers
 
 NOTE: This will still be updated, as our results have yet to be stored, and we have yet to fully create a real itinerary for users. Additionally, we are planning to use at least one more API to complete our application. 
 
-## 2) Entity Relationship (ER) Diagram of Login 
+## 2) Entity Relationship (ER) Diagram of Login and Authentication 
 
 ![Login Authentication ER Diagram](login_auth_erdiagram.png)
 
