@@ -124,6 +124,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ['eb-django-app-dev.elasticbeanstalk.com',
-                 '127.0.0.1',
-                 'http://3.80.57.108:8000/',]
+ALLOWED_HOSTS = ['*']
