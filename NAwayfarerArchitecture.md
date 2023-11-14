@@ -23,7 +23,15 @@ NOTE: This will still be updated, as our results have yet to be stored, and we h
 
 This segment of the documentation regards the ER diagram of the tables relating to authentication.
 
-In our authentication system on Django (key part of the application), the 'auth_user' table holds all user data (username, passwords, etc.) users can be in auth_group, with their association tracked through the 'auth_user_groups' table. Permissions (although not fully used yet) are assignable both to users and groups. 'auth_user_user_permissions' and 'auth_group_permissions' give the connection between users/groups and permissions. The 'django_session' table tracks users sessions, but does NOT have a foreign key relation. However, it is generally connected (hence the arrow not pointing specifically to an attribute). 'django_content_type' gives permissions relating to specific content types within out application, and 'django_admin_log' logs admin actions, and is linked to 'auth_user' and 'django_content_type'. All of these tables are used for administration and assist in the authentication process of this application. 
+In our authentication system on Django (key part of the application), the 'auth_user' table holds all user data (username, passwords, etc.) users can be in auth_group, with their association tracked through the 'auth_user_groups' table. Permissions (although not fully used yet) are assignable both to users and groups. 'auth_user_user_permissions' and 'auth_group_permissions' give the connection between users/groups and permissions. The 'django_session' table tracks users sessions, but does NOT have a foreign key relation. However, it is generally connected (hence the arrow not pointing specifically to an attribute). 'django_content_type' gives permissions relating to specific content types within out application, and 'django_admin_log' logs admin actions, and is linked to 'auth_user' and 'django_content_type'. All of these tables are used for administration and assist in the authentication process of this application. Note that all of this was taken directly from our DB file in the directory. Also note there are more tables than just these.
+
+## 3) Itinerary Creation(BETA) Flow Diagram
+![Itinerary Creation(BETA) Flow Diagram](itinerary_flow.png)
+
+This segment of the documentation regards the Flow Diagram of the Itinerary Creation feature we have implemented as of now.
+
+
+This flow diagram represents the user interaction with our system, beginning with the login/sign-up page to gain access to the travel itinerary feature. Once the user is created and/or logged in, the user can go to the itinerary creation tool. In the itinerary creation tool, the user can fill in their desired filters or preferences for their itinerary! Once the user submits their filter details, the itinerary result, which will for now only show a BETA version, is generated for the user. This marks the end of the user's flow, beginning from authentication to getting a BETA version of an itinerary based on their desired filter inputs.
 
 
 DATE: Updated as of 11/13/2023
