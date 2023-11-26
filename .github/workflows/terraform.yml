@@ -21,15 +21,16 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
-    - name: Change to Terraform Directory
-      run: cd terrformstuff
-
     - name: Terraform Init
       run: terraform init
+      working-directory: ./terraformstuff
 
     - name: Terraform Plan
       run: terraform plan
+      working-directory: ./terraformstuff
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
+      working-directory: ./terraformstuff
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
