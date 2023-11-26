@@ -20,20 +20,20 @@ jobs:
 
     - name: Terraform Format Check
       run: terraform fmt -check
-      working-directory: ./terrformthings
+      working-directory: terrformstuff
 
     - name: Terraform Initialize
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       run: terraform init
-      working-directory: ./terrformthings
+      working-directory: terrformstuff
 
     - name: Terraform Plan
       run: terraform plan
-      working-directory: ./terrformthings
+      working-directory: terrformstuff
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./terrformthings
+      working-directory: terrformstuff
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
