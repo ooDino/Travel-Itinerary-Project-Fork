@@ -3,7 +3,7 @@ name: 'Terraform CI/CD'
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
 
 jobs:
@@ -18,22 +18,22 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
+    - name: Terraform Format Check
+      run: terraform fmt -check
+      working-directory: ./terrformthings
+
     - name: Terraform Initialize
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
       run: terraform init
-      working-directory: terrformstuff
-
-    - name: Terraform Format Check
-      run: terraform fmt -check
-      working-directory: terrformstuff
+      working-directory: ./terrformthings
 
     - name: Terraform Plan
       run: terraform plan
-      working-directory: terrformstuff
+      working-directory: ./terrformthings
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: terrformstuff
+      working-directory: ./terrformthings
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
