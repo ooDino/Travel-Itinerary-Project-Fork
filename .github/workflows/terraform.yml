@@ -1,39 +1,82 @@
-name: 'Terraform CI/CD'
+name: terraform
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    paths:
+      - 'terrformstuff/*'
+      - '.github/workflows/terraform.yml'
   pull_request:
+    branches: [ main ]
+    paths:
+      - 'terrformstuff/*'
+      - '.github/workflows/terraform.yml'
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  format:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
+    name: Format
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      
+      - name: Set up terraform CLI
+        uses: hashicorp/setup-terraform@v1
+      
+      - run: terraform fmt -check
+        working-directory: ./terrformstuff
+        id: fmt
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
+      
+      - name: update pr
+        if: ${{ steps.fmt.outcome == 'failure' && github.event_name == 'pull_request' }}
+        run: |
+          terraform fmt
+          git config --global user.name "terraform-fmt"
+          git config --global user.email "noreply@corise.com"
+          git add -u
+          git commit -m "fixup: Format Terraform files"
+          git push
+        working-directory: ./terrformstuff
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+  terraform:
+    runs-on: ubuntu-latest
+    name: Validate, Plan, and Apply
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
 
-    - name: Terraform Format Check
-      run: terraform fmt -check
-      working-directory: terrformstuff
-
-    - name: Terraform Initialize
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
-      run: terraform init
-      working-directory: terrformstuff
-
-    - name: Terraform Plan
-      run: terraform plan
-      working-directory: terrformstuff
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: terrformstuff
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up terraform CLI
+        uses: hashicorp/setup-terraform@v1
+      
+      - name: terraform init
+        working-directory: ./terrformstuff
+        run: terraform init -input=false
+      
+      - name: terraform validate
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: ./terrformstuff
+        run: terraform validate -no-color
+      
+      - name: terraform plan
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: ./terrformstuff
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+      
+      - name: pass or fail
+        if: ${{ steps.plan.outcome == 'failure' }}
+        run: echo "Plan failed!" && exit 1
+      
+      - name: terraform apply
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        working-directory: ./terrformstuff
+        run: terraform apply -auto-approve -input=false
