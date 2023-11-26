@@ -3,3 +3,4 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+terrformstuff/.terraform/providers/registry.terraform.io/hashicorp/aws/5.26.0/darwin_arm64/terraform-provider-aws_v5.26.0_x5
