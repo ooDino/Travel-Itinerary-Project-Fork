@@ -22,7 +22,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     - name: Change to Terraform Directory
-      run: cd terraformstuff
+      run: cd terrformstuff
 
     - name: Terraform Init
       run: terraform init
