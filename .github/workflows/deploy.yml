@@ -3,10 +3,10 @@
 name: deploy
 
 on:
-    workflow_run:
-        workflows: [terraform] # Triggered by the terraform workflow
-        types: [completed] # The terraform workflow must complete
-        branches: [CrisAssignment10]
+  pull_request:
+    branches:
+      - CrisAssignment10
+  workflow_dispatch:
 
 jobs:
     on-success:
