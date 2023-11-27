@@ -38,9 +38,9 @@ jobs:
               run: |  
                 aws elasticbeanstalk create-application-version \
                 --application-name nawayfarer \
-                --source-bundle S3Bucket="elasticbeanstalk-us-east-1-848245486220",S3Key="nawayfarer_deploy-${{github.sha}}.zip " \
-                --version-label "ver-${{ github.sha }}" \
-                --description "commit-sha-${{ github.sha }}"
+                --source-bundle S3Bucket="elasticbeanstalk-us-east-1-848245486220",S3Key="nawayfarer_deploy-${{github.sha}}.zip" \
+                --version-label "ver-${{ github.sha }}-${{ github.run_id }}" \
+                --description "commit-sha-${{ github.sha }} at ${{ github.event.head_commit.timestamp }}"
 
             - name: Deploy application
               run: aws elasticbeanstalk update-environment --environment-name nawayfarer-environment --version-label "ver-${{ github.sha }}"
