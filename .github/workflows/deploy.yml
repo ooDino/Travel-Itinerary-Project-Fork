@@ -2,8 +2,7 @@ name: deploy
 
 on:
   pull_request:
-    branches:
-      - CrisAssignment10
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
