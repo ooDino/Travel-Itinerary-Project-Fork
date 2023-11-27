@@ -13,6 +13,7 @@ jobs:
             - name: Install dependencies
               run: |
                 python -m pip install --upgrade pip
+                cd Travel-Itinerary-Project/travel_itinerary/.venv/lib/python3.10/site-packages/pkg_resources/tests/data/my-test-package-source
                 pip install -r ./travel_itinerary/requirements.txt
                 pip install -e .
 
