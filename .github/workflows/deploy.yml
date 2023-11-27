@@ -6,6 +6,7 @@ on:
     workflow_run:
         workflows: [terraform] # Triggered by the terraform workflow
         types: [completed] # The terraform workflow must complete
+        branches: [CrisAssignment10]
 
 jobs:
     on-success:
