@@ -1,5 +1,3 @@
-# This workflow will deploy the application to the running environment after a successful merge to main
-
 name: deploy
 
 on:
@@ -11,7 +9,6 @@ on:
 jobs:
     on-success:
         runs-on: ubuntu-latest
-        if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only when test completed successfully 
         steps:
             - uses: actions/checkout@v2
             - name: Install dependencies
@@ -21,7 +18,7 @@ jobs:
                 pip install -e .
 
             - name: Build binary distribution and upload to artifactory
-              run: zip -r "nawayfarer_deploy-${{github.sha}}.zip" ./idea ./terrformstuff travel_itinerary
+              run: zip -r "nawayfarer_deploy-${{github.sha}}.zip" ./idea ./terrformstuff ./travel_itinerary
               
             - name: Upload application artifact
               uses: actions/upload-artifact@v3
