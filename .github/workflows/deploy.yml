@@ -43,4 +43,4 @@ jobs:
                 --description "commit-sha-${{ github.sha }} at ${{ github.event.head_commit.timestamp }}"
 
             - name: Deploy application
-              run: aws elasticbeanstalk update-environment --environment-name nawayfarer-environment --version-label "ver-${{ github.sha }}-${{ github.run_id }}"
+              run: aws elasticbeanstalk update-environment --environment-name nawayfarer-environment-test --version-label "ver-${{ github.sha }}-${{ github.run_id }}"
