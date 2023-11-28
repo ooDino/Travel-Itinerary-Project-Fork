@@ -1,7 +1,7 @@
 name: deploy
 
 on:
-  pull_request:
+  push:
     branches: [main]
   workflow_dispatch:
 
@@ -29,11 +29,8 @@ jobs:
       - name: Upload application file to AWS S3
         run: aws s3 cp "nawayfarer_deploy-${{ github.sha }}.zip" s3://cs9490-nawayfarer/nawayfarer_deploy-${{ github.sha }}.zip
 
-      - name: Create new application version with timestamp
-        run: |
-          VERSION_LABEL="ver-$(date +%Y%m%d%H%M%S)-${{ github.run_number }}"
-          aws elasticbeanstalk create-application-version --application-name nawayfarer --source-bundle S3Bucket="cs9490-nawayfarer",S3Key="nawayfarer_deploy-${{ github.sha }}.zip" --version-label "$VERSION_LABEL" --description "Deploying version $VERSION_LABEL"
-
+      - name: Create new application version
+        run: aws elasticbeanstalk create-application-version --application-name nawayfarer --source-bundle S3Bucket="cs9490-nawayfarer",S3Key="nawayfarer_deploy-${{ github.sha }}.zip" --version-label "ver-${{ github.sha }}" --description "Deploying version ${{ github.sha }}"
 
       - name: Deploy application
         run: aws elasticbeanstalk update-environment --environment-name nawayfarer-environment --version-label "ver-${{ github.sha }}"
