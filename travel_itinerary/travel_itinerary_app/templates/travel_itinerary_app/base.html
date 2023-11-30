@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Welcome to NAwayFarer</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Styling for the header */
+        header {
+            background-color: #0a1332;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-link, header h1 a { 
+            color: #fff; 
+            text-decoration: none; 
+            transition: color 0.3s;
+        }
+
+        .header-link:hover, header h1 a:hover { 
+            color: #2c4ebd;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="left-section">
+                <img src="{% static 'travel_itinerary_app/image/logo1.png' %}" alt="NAwayFarer Logo" class="header-logo">
+                <h1><a href="/" class="home-link">NAwayFarer</a></h1> 
+            </div>
+            <div class="right-section">
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>
