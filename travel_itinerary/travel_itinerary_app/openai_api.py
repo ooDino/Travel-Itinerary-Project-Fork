@@ -4,14 +4,14 @@ client = OpenAI()
 import time
 import os
 
-def travel_itinerary_creation(starting_location, destination_location, departing_date, returning_date, min_amt, max_amt):
+def travel_itinerary_creation(starting_location, destination_location, departing_date, returning_date, min_amt, max_amt, travelers):
 
     thread = client.beta.threads.create()
 
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
-        content= f"Leaving from {starting_location} on {departing_date}, arriving to {destination_location} on {destination_location}, Staying there until {returning_date}. Minimum I want to spend {min_amt}, maximum I want to spend {max_amt}."    
+        content= f"Leaving from {starting_location} on {departing_date}, arriving to {destination_location} on {destination_location}, Staying there until {returning_date}. Minimum I want to spend {min_amt}, maximum I want to spend {max_amt}. There is/are {travelers} people going on this trip."    
     )
 
     run = client.beta.threads.runs.create(
