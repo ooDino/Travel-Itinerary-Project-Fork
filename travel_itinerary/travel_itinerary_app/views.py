@@ -17,6 +17,7 @@ from django.shortcuts import render
 from .flights import airport_id_locator, flights_finder
 from datetime import datetime
 from .yelp_api import search_businesses
+from .openai_api import *
 
 def home(request):
     # Your logic for the homepage view
@@ -166,4 +167,7 @@ def search_results(request):
         context["error_message"] = "Sorry, there was an error processing your request."
 
     return render(request, "travel_itinerary_app/search_results.html", context)
+
+#def travel_itinerary_creation(request):
+
     
