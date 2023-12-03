@@ -13,7 +13,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('itinerary_form/', views.itinerary_form, name='itinerary_form'),
     path("search_results/", views.search_results, name="search_results"),
-    path("show-itinerary/", views.display_itinerary, name="show-itinerary"),
+    path("display_itinerary/", views.display_itinerary, name="display_itinerary"),
     # Add more URL patterns as needed
 ]
 

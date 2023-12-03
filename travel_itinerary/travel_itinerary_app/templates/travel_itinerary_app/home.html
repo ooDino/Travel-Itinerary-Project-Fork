@@ -171,6 +171,7 @@
                 <h1>Welcome to NAwayFarer</h1>
             </div>
             <div class="right-section">
+                <a href="{% url 'display_itinerary' %}" class="header-link">Create Itinerary</a>
                 <a href="{% url 'itinerary' %}" class="header-link">Plan Your Trip</a>
                 {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}" class="header-link">Profile</a>

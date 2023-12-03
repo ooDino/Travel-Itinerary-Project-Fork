@@ -178,13 +178,12 @@ def display_itinerary(request):
         travelers = request.POST.get('travelers') 
         min_amount = request.POST.get('min_amount')
         max_amount = request.POST.get('max_amount')
-        business = request.POST.get('business') 
 
         # Call the travel_itinerary_creation function with the form data
         itinerary = travel_itinerary_creation(origin_city, destination_city, departure_date, return_date, min_amount, max_amount, travelers)
 
         # Pass the itinerary to the itinerary_display template
-        return render(request, 'travel_itinerary_app/itinerary_display.html', {'itinerary': itinerary})
+        return render(request, 'travel_itinerary_app/itinerary_display.html', {'itinerary': itinerary, 'destination_city': destination_city})
 
     # If it's not a POST request, just show the form
-    return render(request, 'itinerary_form.html')
+    return render(request, 'travel_itinerary_app/display_itinerary.html')

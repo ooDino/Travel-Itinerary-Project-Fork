@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,10 +174,10 @@
     </header>
 
     <main>
-        <h2>Your Trip to {{ end_location }}</h2>
+        <h2>Your Trip to {{ destination_city }}</h2>
         <div class="itinerary">
             <div>
-                {{ itinerary|safe }}
+                {{ itinerary }}
             </div>
         </div>
     </main>
