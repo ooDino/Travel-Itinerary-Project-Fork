@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Itinerary Filters</title>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #0a1332;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            color: #2c4ebd; 
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"],
+        button[type="reset"] {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover,
+        button[type="reset"]:hover {
+            background-color: #98a7b7;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: #0a1332;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Plan Your Trip</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}" class="cta-button">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="trip-form">
+            <h2>Create Your Travel Itinerary</h2>
+            <form id="display-itinerary" action="{% url 'display_itinerary' %}" method="post">
+
+                {% csrf_token %}
+
+
+                <!-- Departure Date -->
+                <div class="form-group">
+                    <label for="departure-date">Departure Date:</label>
+                    <input type="date" id="departure-date" name="departure_date" required>
+                </div>
+
+                <!-- Return Date -->
+                <div class="form-group">
+                    <label for="return-date">Return Date:</label>
+                    <input type="date" id="return-date" name="return_date" required>
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label for="origin">Origin City:</label>
+                    <input type="text" id="origin" name="Origin City" required>
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label for="destination">Destination City:</label>
+                    <input type="text" id="destination" name="Destination City" required>
+                </div>
+
+                <!-- Number of Travelers -->
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers:</label>
+                    <input type="number" id="travelers" name="travelers" required>
+                </div>
+
+                <!-- Minimum Amount -->
+                <div class="form-group">
+                    <label for="min-amount">Minimum Amount (USD):</label>
+                    <input type="number" id="min-amount" name="min_amount" required>
+                </div>
+
+                <!-- Maximum Amount -->
+                <div class="form-group">
+                    <label for="max-amount">Maximum Amount (USD):</label>
+                    <input type="number" id="max-amount" name="max_amount" required>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="form-group">
+                    <button type="reset">Reset</button>
+                </div>
+
+                <!-- Start Planning Button -->
+                <div class="form-group">
+                    <button type="submit">Start Planning</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 NAwayFarer</p>
+    </footer>
+</body>
+</html>
