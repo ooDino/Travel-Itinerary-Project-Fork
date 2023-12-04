@@ -17,6 +17,7 @@ from django.shortcuts import render
 from .flights import airport_id_locator, flights_finder
 from datetime import datetime
 from .yelp_api import search_businesses
+from .openai_api import *
 
 def home(request):
     # Your logic for the homepage view
@@ -166,4 +167,23 @@ def search_results(request):
         context["error_message"] = "Sorry, there was an error processing your request."
 
     return render(request, "travel_itinerary_app/search_results.html", context)
-    
+
+def display_itinerary(request):
+    if request.method == 'POST':
+        # Extracting form data
+        departure_date = request.POST.get('departure_date')
+        return_date = request.POST.get('return_date')
+        origin_city = request.POST.get('Origin City')
+        destination_city = request.POST.get('Destination City')
+        travelers = request.POST.get('travelers') 
+        min_amount = request.POST.get('min_amount')
+        max_amount = request.POST.get('max_amount')
+
+        # Call the travel_itinerary_creation function with the form data
+        itinerary = travel_itinerary_creation(origin_city, destination_city, departure_date, return_date, min_amount, max_amount, travelers)
+
+        # Pass the itinerary to the itinerary_display template
+        return render(request, 'travel_itinerary_app/itinerary_display.html', {'itinerary': itinerary, 'destination_city': destination_city})
+
+    # If it's not a POST request, just show the form
+    return render(request, 'travel_itinerary_app/display_itinerary.html')

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to NAwayFarer</title>
+    <title>Travel Itinerary Generator</title>
     <style>
         /* Reset some default styles */
         body, h1, h2, p {
@@ -165,42 +165,21 @@
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <div class="left-section">
-                <img src="{% static 'travel_itinerary_app/image/logo1.png' %}" alt="NAwayFarer Logo" class="header-logo">
-                <h1>Welcome to NAwayFarer</h1>
-            </div>
-            <div class="right-section">
-                <a href="{% url 'display_itinerary' %}" class="header-link">Create Itinerary</a>
-                <a href="{% url 'itinerary' %}" class="header-link">Plan Your Trip</a>
-                {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="header-link">Profile</a>
-                <a href="{% url 'logout' %}" class="header-link">Logout</a>
-                {% else %}
-                <a href="{% url 'signup' %}" class="header-link">Sign Up</a>
-                <a href="{% url 'login' %}" class="header-link">Login</a>
-                {% endif %}
+        <h1>Your Personalized Travel Itinerary</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}" class="cta-button">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Your Trip to {{ destination_city }}</h2>
+        <div class="itinerary">
+            <div>
+                {{ itinerary }}
             </div>
         </div>
-    </header>
-    <div class="background-image-container">
-    </div>
-
-    <main>     
-        <section id="plan-your-trip">
-            <h2><a href="{% url 'itinerary' %}" class="plan-trip-link-main">Plan Your Trip</a></h2>
-            <p>Welcome to NAwayFarer! We make planning your dream vacations a breeze. Whether you're looking for a relaxing beach getaway or an adventurous mountain expedition, we've got you covered.</p>
-        </section>
-
-        <section id="popular-destinations">
-            <h2>Popular Destinations</h2>
-            <p>Explore our list of popular destinations and discover your next travel adventure. From iconic cities to hidden gems, there's something for every traveler.</p>
-        </section>
-
-        <section id="recent-itineraries">
-            <h2>Recent Itineraries</h2>
-            <p>Check out our latest travel itineraries created by fellow travelers. Get inspired and start planning your own unforgettable journey.</p>
-        </section>
     </main>
 
     <footer>

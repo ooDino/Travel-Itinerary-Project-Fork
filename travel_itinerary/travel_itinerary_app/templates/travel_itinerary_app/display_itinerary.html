@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Itinerary Information Generator</title>
+    <title>Travel Itinerary Filters</title>
     <style>
         /* Reset some default styles */
         body, h1, h2, p {
@@ -109,7 +109,7 @@
     <main>
         <section id="trip-form">
             <h2>Create Your Travel Itinerary</h2>
-            <form id="itinerary-form" action="{% url 'itinerary_form' %}" method="post">
+            <form id="display-itinerary" action="{% url 'display_itinerary' %}" method="post">
 
                 {% csrf_token %}
 
@@ -154,12 +154,6 @@
                 <div class="form-group">
                     <label for="max-amount">Maximum Amount (USD):</label>
                     <input type="number" id="max-amount" name="max_amount" required>
-                </div>
-
-                <!-- Business -->
-                <div class="form-group">
-                    <label for="business">Business:</label>
-                    <input type="text" id="business" name="business" required>
                 </div>
 
                 <!-- Reset Button -->
